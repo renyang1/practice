@@ -1,4 +1,4 @@
-package com.ryang.bookdemo.Chapter10;
+package com.ryang.bookdemo.optional;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  * @Date: 2019/1/24 11:15
  * @Description: Optional API demo
  */
-public class OptionalApiTest {
+public class OptionalApiDemo {
 
     User user1 = new User("ZhangSan", 20);
     User user2 = null;

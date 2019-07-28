@@ -199,4 +199,19 @@ public class LocalDateTest {
         // 也可以使用get(),在方法内指定单元
         System.out.println(period1.get(ChronoUnit.DAYS));
     }
+
+    @Test
+    public void test1() {
+        String dayYear = "2019-09";
+        LocalDate openClassDate = LocalDate.parse(dayYear + "-01");
+        // 第一阶段结束时间
+        String level1Enddate = openClassDate.plusMonths(3).with(TemporalAdjusters.lastDayOfMonth()).toString();
+        System.out.println(level1Enddate);
+        // 第二阶段结束时间
+        String level2Enddate = openClassDate.plusMonths(6).with(TemporalAdjusters.lastDayOfMonth()).toString();
+        System.out.println(level2Enddate);
+        // 第三阶段结束时间
+        String level3Enddate = openClassDate.plusMonths(7).with(TemporalAdjusters.lastDayOfMonth()).toString();
+        System.out.println(level3Enddate);
+    }
 }

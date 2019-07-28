@@ -19,7 +19,7 @@ public class LinkedListTest {
     TreeSet<String> treeSet = new TreeSet();
 
     @Before
-    public void init(){
+    public void init() {
         linkedList.add("a");
         linkedList.add("b");
         linkedList.add("c");
@@ -41,23 +41,61 @@ public class LinkedListTest {
     }
 
     @Test
-    public void getTest(){
+    public void getTest() {
         System.out.println(linkedList.get(2));
     }
 
     @Test
-    public void stackGet(){
+    public void stackGet() {
         System.out.println(stack.pop());
         System.out.println(stack.peek());
         System.out.println(stack.search("b"));
     }
 
     @Test
-    public void setTest(){
+    public void setTest() {
         String s = "任";
         byte[] bytes = s.getBytes();
         System.out.println(bytes[0]);
         char[] chars = s.toCharArray();
         System.out.println(chars[0]);
+    }
+
+    @Test
+    public void sublist() {
+
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+
+        List<String> list1 = list.subList(1, 2);
+        list1.add("4");
+        list.add("5");
+        for (String l : list1) {
+            System.out.println(l);
+        }
+        System.out.println(list.toString());
+    }
+
+    @Test
+    public void arrayList() {
+        String[] args = new String[]{"1", "2", "3"};
+        List<String> list = Arrays.asList(args);
+        args[0] = "4";
+        System.out.println(list.toString());
+    }
+
+    @Test
+    public void test1(){
+        List<String> list = new ArrayList<>();
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        int count = list.size();
+        System.out.println(count);
+
+        list = null;
+        System.out.println(count);
     }
 }

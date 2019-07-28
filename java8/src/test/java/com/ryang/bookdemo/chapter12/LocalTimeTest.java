@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Date;
 
 /**
  * @Auther: renyang
@@ -24,6 +26,8 @@ public class LocalTimeTest {
     public void creat() {
         // 1.获取当前时间
         LocalDateTime dateTime1 = LocalDateTime.now();
+        DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        System.out.println(dateTime1.format(formatter1));
         System.out.println(dateTime1.toString());
 
         // 2.指定时间创建对象
@@ -44,6 +48,14 @@ public class LocalTimeTest {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime dateTime5 = LocalDateTime.parse("2019-07-03 19:45:30",formatter);
         System.out.println(dateTime5.format(formatter));
+
+        // 6.将Date转换为LocalDateTime
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(new Date().toInstant(), zoneId);
+        System.out.println("将Date转换为LocalDateTime");
+        System.out.println(localDateTime);
+        LocalDate endDate = localDateTime.with(TemporalAdjusters.lastDayOfMonth()).toLocalDate();
+        System.out.println(endDate.toString());
     }
 
     /**

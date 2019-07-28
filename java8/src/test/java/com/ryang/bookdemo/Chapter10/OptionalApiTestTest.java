@@ -1,5 +1,6 @@
 package com.ryang.bookdemo.Chapter10;
 
+import com.ryang.bookdemo.optional.OptionalApiDemo;
 import org.junit.Test;
 
 /**
@@ -67,5 +68,5 @@ public class OptionalApiTestTest<T> {
         thread.start();
     }
 
-    OptionalApiTest optionalApiTest = new OptionalApiTest();
+    OptionalApiDemo optionalApiTest = new OptionalApiDemo();
 }
