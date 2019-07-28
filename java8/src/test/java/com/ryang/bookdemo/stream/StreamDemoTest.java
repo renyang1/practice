@@ -20,4 +20,9 @@ public class StreamDemoTest {
     public void transformStream() {
 
     }
+
+    @Test
+    public void streamOperation() {
+        new StreamDemo().streamIntermediateOperation();
+    }
 }
