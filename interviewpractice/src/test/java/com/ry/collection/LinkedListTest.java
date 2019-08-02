@@ -87,15 +87,7 @@ public class LinkedListTest {
     }
 
     @Test
-    public void test1(){
-        List<String> list = new ArrayList<>();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        int count = list.size();
-        System.out.println(count);
+    public void test1() {
 
-        list = null;
-        System.out.println(count);
     }
 }
