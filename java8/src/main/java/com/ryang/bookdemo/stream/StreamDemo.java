@@ -20,6 +20,17 @@ import java.util.stream.Stream;
  */
 public class StreamDemo {
 
+    // 初始化集合
+    private List<User> userList = new ArrayList<User>() {
+        {
+            this.add(new User(1, 40, "小明", "男"));
+            this.add(new User(2,10, "小敏", "女"));
+            this.add(new User(3,30, "小红", "女"));
+            this.add(new User(4,20, "小李", "男"));
+            this.add(new User(4,40, "小李", "男"));
+            this.add(new User(5,null, "小王", "男"));
+        }
+    };
     /**
      * Description: 1.创建Stream对象
      *
@@ -77,7 +88,7 @@ public class StreamDemo {
      * @date: 2019/7/28 15:24
      */
     public void streamIntermediateOperation() {
-        List<User> userList = new ArrayList<User>() {
+        /*List<User> userList = new ArrayList<User>() {
             {
                 this.add(new User(1, 40, "小明", "男"));
                 this.add(new User(2,10, "小敏", "女"));
@@ -86,7 +97,7 @@ public class StreamDemo {
                 this.add(new User(4,20, "小李", "男"));
                 this.add(new User(5,30, "小王", "男"));
             }
-        };
+        };*/
 
         // 注意各个函数式接口方法的入参，参数类型是否为Stream泛型类型
 
@@ -134,7 +145,6 @@ public class StreamDemo {
 //        System.out.println(sortedUserList);
 
         // 按age倒序
-        // todo:为什么这里只能用User::getAge而不能使用user -> user.getAge(),两者的区别是什么
         // java8泛型推导的问题，所以如果comparing里面是非方法引用的lambda表达式就没办法直接使用reversed()
         List<User> reversedSortedUserList = userList.stream().distinct()
                 .sorted(Comparator.comparing(User::getAge).reversed()).collect(Collectors.toList());
@@ -154,20 +164,6 @@ public class StreamDemo {
                 .thenComparing(Comparator.comparing(User::getId).reversed()))
                 .collect(Collectors.toList());
 //        System.out.println(sortedUsers1);
-
-        /**
-         * 6.peek: 对每个元素执行操作并返回一个新的 Stream
-         * */
-        // todo: peek的用法
-//        userList.stream().map(User::getId).peek(id -> "学员id为：" + id).collect(Collectors.toList());
-
-        Stream.of("one", "two", "three", "four")
-                .filter(e -> e.length() > 3)
-                .peek(e -> System.out.println("Filtered value: " + e))
-                .map(String::toUpperCase)
-                .peek(e -> System.out.println("Mapped value: " + e))
-                .filter(e -> e.length() > 4)
-                .collect(Collectors.toList());
     }
 
     /**
@@ -179,7 +175,135 @@ public class StreamDemo {
      * @date: 2019/7/28 17:46
      */
     public void streamTerminalOperation() {
-        // todo:流的终端操作
+        // ***流的终端操作之匹配
+        /**
+         * 1.anyMatch:检查谓词是否至少匹配一个元素
+         * */
+        // 检查是否有一个name为'小敏'的user
+        boolean isAnyMatch = userList.stream().anyMatch(user -> user.getName().equals("小敏"));
+        if (isAnyMatch) {
+            System.out.println("有name为小敏的用户");
+        }
+
+        /**
+         * 2.allMatch:检查谓词是否匹配所有元素
+         * */
+        boolean isAllMatch = userList.stream().allMatch(user -> user.getName().equals("小敏"));
+        if(isAllMatch) {
+            System.out.println("所有用户name均为小敏");
+        }
+
+        /**
+         * 3.noneMatch：确保流中没有任何元素与给定的谓词匹配
+         * */
+        boolean isNoneMatch = userList.stream().noneMatch(user -> user.getName().equals("张三"));
+        if (isNoneMatch) {
+            System.out.println("所有用户中没有name为张三的用户");
+        }
+
+        // ***流的终端操作之查找
+        /**
+         * 4. findAny:返回当前流中的任意元素(不一定是集合中符合条件的第一个元素)
+         * */
+        Optional<User> optionalUser = userList.stream().findAny();
+        User user = optionalUser.orElse(null);
+        System.out.println("findAny: " + user);
+
+        /**
+         * 5. findFirst:查找第一个元素
+         * */
+        Optional<User> optionalFirstUser = userList.stream().findFirst();
+        User userFirst = optionalFirstUser.orElse(null);
+        System.out.println("findFirst: " + userFirst);
+    }
+
+    /**
+     * Description:流的终端操作之归约(reduce)。归约：将流中所有元素反复结合起来，得到一个值，比如一个Integer
+     * @auther: renyang
+     * @param:
+     * @return:
+     * @date: 2019/8/4 16:34
+     */
+    public void streamReduceTerminalOperation(){
+
+        /**
+         * 1. 元素求和
+         * */
+        int totalAge = userList.stream().map(User::getAge)
+                .filter(age -> age != null) // 注意过滤null值,否则会出现NPE，因为Integer到int的拆箱
+                .reduce(0, (age1, age2) -> age1 + age2);
+        System.out.println("用户总age为： " + totalAge);
+
+        /**
+         * 2.求最大值
+         * */
+        Optional<Integer> maxAgeOptional = userList.stream().map(User::getAge)
+                .filter(age -> age != null)
+                .reduce(Integer::max);
+        if (maxAgeOptional.isPresent()) {
+            int maxAge =maxAgeOptional.get();
+            System.out.println("用户最大年龄为 " + maxAge);
+        }
+
+        /**
+         * 3.求最小值
+         * */
+        Optional<Integer> minAgeOptional = userList.stream().map(User::getAge)
+                .filter(age -> age != null)
+                .reduce(Integer :: min);
+        if (minAgeOptional.isPresent()) {
+            int minAge = minAgeOptional.get();
+            System.out.println("用户最小年龄为 " + minAge);
+        }
+    }
+
+    /**
+     * Description: 使用收集器进行高级归约操作，Collectors实用类提供了很多静态工厂方法，
+     *              可以方便地创建常见收集器的实例，只要拿来用就可以了。最直接和最常用的收集器是toList
+     *              静态方法，它会把流中所有的元素收集到一个List中。从Collectors类提供的工厂方法
+     *              （例如groupingBy）创建的收集器。它们主要提供了三大功能：
+     *              1. 将流元素归约和汇总为一个值
+     *              2. 元素分组
+     *              3. 元素分区
+     * @auther: renyang
+     * @param: 
+     * @return: 
+     * @date: 2019/8/4 18:39
+     */
+    public void streamCollectors() {
+        /*** 归约和汇总  ***/
+
+        /**
+         *1. 最大、最小值：使用Collectors.maxBy和Collectors.minBy收集器来计算流中的最大值和最小值
+         * */
+        Comparator<User> ageComparator = Comparator.comparingInt(User::getAge);
+        Optional<User> ageMaxUser = userList.stream()
+                .filter(user -> user.getAge() != null) // 注意null值过滤
+                .collect(Collectors.maxBy(ageComparator));
+        if (ageMaxUser.isPresent()) {
+            System.out.println("年龄最大的用户为：" + ageMaxUser);
+        }
+
+        /**
+         * 2. 汇总：Collectors.summingInt，它可接受一个把对象映射为求和所需int的函数，
+         * 并返回一个收集器；该收集器在传递给普通的collect方法后即执行我们需要的汇总操作。
+         * */
+        int totalAge = userList.stream()
+                .filter(user -> user.getAge() != null) // 注意null值过滤
+                .collect(Collectors.summingInt(User::getAge));
+        System.out.println("总年龄为： " + totalAge);
+
+        /**
+         * 3. 计算平均值：Collectors.averagingInt
+         * */
+        double avgAge = userList.stream().
+                map(user -> {
+                    if (user.getAge() == null)
+                        user.setAge(0);// 将年龄值为null的置为0
+                    return user;
+                })
+                .collect(Collectors.averagingInt(User::getAge));
+        System.out.println("平均年龄为： " + avgAge);
 
     }
 
