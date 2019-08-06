@@ -1,4 +1,4 @@
-package com.ryang.bookdemo.Chapter3;
+package com.ryang.Chapter3;
 
 /**
  * @Auther: renyang

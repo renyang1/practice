@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * @Date: 2019/8/6 19:25
  * @Description: 使用
  */
-public class BigdecimalDemo {
+public class BigDecimalDemo {
 
     /**
      * Description: 1. 创建BigDecimal对象

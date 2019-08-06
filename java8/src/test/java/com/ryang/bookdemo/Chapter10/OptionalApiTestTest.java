@@ -1,6 +1,6 @@
 package com.ryang.bookdemo.Chapter10;
 
-import com.ryang.bookdemo.optional.OptionalApiDemo;
+import com.ryang.optional.OptionalApiDemo;
 import org.junit.Test;
 
 /**

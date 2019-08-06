@@ -1,4 +1,4 @@
-package com.ryang.bookdemo.stream;
+package com.ryang.stream;
 
 import org.junit.Test;
 
