@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>interviewpractice</module>
+        <module>java</module>
     </modules>
 
     <name>practice-parent</name>
