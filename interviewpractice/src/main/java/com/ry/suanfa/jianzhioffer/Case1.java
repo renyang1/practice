@@ -42,8 +42,6 @@ public class Case1 {
 
     @Test
     public void test() {
-        String s = "2019-07";
-        System.out.println(s.substring(5,7));
         Case1 case1 = new Case1();
         int index = case1.FirstNotRepeatingChar(str);
         System.out.println(index);
