@@ -1,4 +1,4 @@
-package com.ry.array;
+package com.ry.collection.array;
 
 import org.junit.Test;
 

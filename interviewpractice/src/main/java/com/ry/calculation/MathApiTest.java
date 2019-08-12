@@ -1,4 +1,4 @@
-package com.ry.math;
+package com.ry.calculation;
 
 import org.junit.Test;
 
