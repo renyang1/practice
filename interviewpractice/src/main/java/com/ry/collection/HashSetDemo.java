@@ -13,7 +13,7 @@ public class HashSetDemo {
     private HashSet<String> set = new HashSet();
 
     @Test
-    public void put() {
+    public void add() {
         boolean res = set.add("ryang");
         System.out.println(res);
         res = set.add("ryang");
