@@ -2,6 +2,7 @@ package com.ryang.stream;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.junit.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,13 +25,14 @@ public class StreamDemo {
     private List<User> userList = new ArrayList<User>() {
         {
             this.add(new User(1, 40, "小明", "男"));
-            this.add(new User(2,10, "小敏", "女"));
-            this.add(new User(3,30, "小红", "女"));
-            this.add(new User(4,20, "小李", "男"));
-            this.add(new User(4,40, "小李", "男"));
-            this.add(new User(5,null, "小王", "男"));
+            this.add(new User(2, 10, "小敏", "女"));
+            this.add(new User(3, 30, "小红", "女"));
+            this.add(new User(4, 20, "小李", "男"));
+            this.add(new User(4, 40, "小李", "男"));
+            this.add(new User(5, null, "小王", "男"));
         }
     };
+
     /**
      * Description: 1.创建Stream对象
      *
@@ -79,8 +81,8 @@ public class StreamDemo {
 
     /**
      * Description: 3.流的Intermediate(非中断)操作
-     *              map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、
-     *              parallel、 sequential、 unordered
+     * map (mapToInt, flatMap 等)、 filter、 distinct、 sorted、 peek、 limit、 skip、
+     * parallel、 sequential、 unordered
      *
      * @auther: renyang
      * @param:
@@ -161,14 +163,15 @@ public class StreamDemo {
          */
         List<User> sortedUsers1 = userList.stream().distinct()
                 .sorted(Comparator.comparing(User::getAge)
-                .thenComparing(Comparator.comparing(User::getId).reversed()))
+                        .thenComparing(Comparator.comparing(User::getId).reversed()))
                 .collect(Collectors.toList());
 //        System.out.println(sortedUsers1);
     }
 
     /**
      * Description: 流的终端操作：forEach、 forEachOrdered、 toArray、 reduce、 collect、 min、 max、 count、
-     *              anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 iterator
+     * anyMatch、 allMatch、 noneMatch、 findFirst、 findAny、 iterator
+     *
      * @auther: renyang
      * @param:
      * @return:
@@ -189,7 +192,7 @@ public class StreamDemo {
          * 2.allMatch:检查谓词是否匹配所有元素
          * */
         boolean isAllMatch = userList.stream().allMatch(user -> user.getName().equals("小敏"));
-        if(isAllMatch) {
+        if (isAllMatch) {
             System.out.println("所有用户name均为小敏");
         }
 
@@ -219,12 +222,13 @@ public class StreamDemo {
 
     /**
      * Description:流的终端操作之归约(reduce)。归约：将流中所有元素反复结合起来，得到一个值，比如一个Integer
+     *
      * @auther: renyang
      * @param:
      * @return:
      * @date: 2019/8/4 16:34
      */
-    public void streamReduceTerminalOperation(){
+    public void streamReduceTerminalOperation() {
 
         /**
          * 1. 元素求和
@@ -241,7 +245,7 @@ public class StreamDemo {
                 .filter(age -> age != null)
                 .reduce(Integer::max);
         if (maxAgeOptional.isPresent()) {
-            int maxAge =maxAgeOptional.get();
+            int maxAge = maxAgeOptional.get();
             System.out.println("用户最大年龄为 " + maxAge);
         }
 
@@ -250,7 +254,7 @@ public class StreamDemo {
          * */
         Optional<Integer> minAgeOptional = userList.stream().map(User::getAge)
                 .filter(age -> age != null)
-                .reduce(Integer :: min);
+                .reduce(Integer::min);
         if (minAgeOptional.isPresent()) {
             int minAge = minAgeOptional.get();
             System.out.println("用户最小年龄为 " + minAge);
@@ -259,17 +263,19 @@ public class StreamDemo {
 
     /**
      * Description: 使用收集器进行高级归约操作，Collectors实用类提供了很多静态工厂方法，
-     *              可以方便地创建常见收集器的实例，只要拿来用就可以了。最直接和最常用的收集器是toList
-     *              静态方法，它会把流中所有的元素收集到一个List中。从Collectors类提供的工厂方法
-     *              （例如groupingBy）创建的收集器。它们主要提供了三大功能：
-     *              1. 将流元素归约和汇总为一个值
-     *              2. 元素分组
-     *              3. 元素分区
+     * 可以方便地创建常见收集器的实例，只要拿来用就可以了。最直接和最常用的收集器是toList
+     * 静态方法，它会把流中所有的元素收集到一个List中。从Collectors类提供的工厂方法
+     * （例如groupingBy）创建的收集器。它们主要提供了三大功能：
+     * 1. 将流元素归约和汇总为一个值
+     * 2. 元素分组
+     * 3. 元素分区
+     *
      * @auther: renyang
-     * @param: 
-     * @return: 
+     * @param:
+     * @return:
      * @date: 2019/8/4 18:39
      */
+    @Test
     public void streamCollectors() {
         /*** 归约和汇总  ***/
 
@@ -304,6 +310,25 @@ public class StreamDemo {
                 })
                 .collect(Collectors.averagingInt(User::getAge));
         System.out.println("平均年龄为： " + avgAge);
+
+        /**
+         * 4. 连接字符串：Collectors.joining()、Collectors.joining()
+         *    joining工厂方法返回的收集器会把对流中每一个对象应用toString方法得到的所有字符
+         *   串连接成一个字符串。joining在内部使用了StringBuilder来把生成的字符串逐个追加起来。
+         * */
+        String name = userList.stream().map(User::getName).collect(Collectors.joining());// 元素间无分隔符
+        System.out.println("拼接所有name,结果为：" + name);
+
+        String name1 = userList.stream().map(User::getName).collect(Collectors.joining(", "));// name将以逗号分隔
+        System.out.println(name1);
+
+        /*** 分组 ***/
+
+        /**
+         * 5. 分组：Collectors
+         * */
+        Map<String, List<User>> userBySex = userList.stream().collect(Collectors.groupingBy(User::getSex));
+        System.out.println("按性别分组结果为：" + userBySex);
 
     }
 
