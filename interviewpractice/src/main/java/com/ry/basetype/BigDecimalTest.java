@@ -19,4 +19,13 @@ public class BigDecimalTest {
         b3 = b3.setScale(2,BigDecimal.ROUND_HALF_UP);
         System.out.println(b3);
     }
+
+    @Test
+    public void test() {
+        float x = 0F;
+        if (x == 0) {
+            System.out.println("00000");
+        }
+
+    }
 }
