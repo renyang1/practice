@@ -52,12 +52,4 @@ public class Case4 {
             e = e.next;
         }
     }
-
-    @Test
-    public void test1() {
-        String s = null;
-        String s1 = s;
-        s = new String("1");
-        System.out.println(s1);
-    }
 }
