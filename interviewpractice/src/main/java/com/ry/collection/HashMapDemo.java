@@ -20,4 +20,10 @@ public class HashMapDemo {
         res = map.put("1", "ryang1");
         System.out.println(res);
     }
+
+    public void creat() {
+        HashMap<String, String> hashMap = new HashMap<>(30);
+        hashMap.put("key1", "1");
+        System.out.println(hashMap.size());
+    }
 }
