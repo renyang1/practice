@@ -24,7 +24,7 @@ public class Singleton1 {
      * @date: 2019/8/12 11:11
      */
     public static Singleton1 getInstance() {
-        if (instance == null) {// A、B线程同时执行到这里，都判断instance == null为true时，可能会得到不同的对象
+        if (instance == null) {// InstallCert、B线程同时执行到这里，都判断instance == null为true时，可能会得到不同的对象
             instance = new Singleton1();
         }
         return instance;
