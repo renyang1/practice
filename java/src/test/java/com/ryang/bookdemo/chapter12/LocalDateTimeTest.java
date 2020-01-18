@@ -13,7 +13,7 @@ import java.util.Date;
  * @Date: 2019/7/3 19:17
  * @Description:
  */
-public class LocalTimeTest {
+public class LocalDateTimeTest {
 
     /**
      * Description: 创建LocalTime实例的方式

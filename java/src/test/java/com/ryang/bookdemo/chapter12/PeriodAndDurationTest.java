@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -20,5 +21,12 @@ public class PeriodAndDurationTest {
         LocalDateTime dateTime2 = dateTime1.plus(1, ChronoUnit.DAYS);
         Duration duration = Duration.between(dateTime1, dateTime2);// 后面-前面
         System.out.println(duration.toHours());
+    }
+
+    @Test
+    public void localTime() {
+        String localTime = "17:00:00";
+        LocalTime localTime1 = LocalTime.parse(localTime);
+        System.out.println(localTime1);
     }
 }

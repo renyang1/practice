@@ -1,5 +1,7 @@
 package com.ryang.optional;
 
+import org.junit.Test;
+
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -15,6 +17,11 @@ public class OptionalApiDemo {
     User user2 = null;
     User user3 = new User("LiSi");
 
+    public static void main(String[] args) {
+        OptionalApiDemo optionalApiDemo = new OptionalApiDemo();
+        optionalApiDemo.testOfNullable();
+    }
+
     /**
      * Description: 返回一个指定非null值的Optional
      *
@@ -23,11 +30,17 @@ public class OptionalApiDemo {
      * @return:
      * @date: 2019/1/25 15:29
      */
+    @Test
     public void testOf() {
 
-        Optional optional1 = Optional.of(user1);
-        System.out.println(optional1.get());
-        Optional optional2 = Optional.of(user2);
+        User user1 = new User("ry", 20);
+        User user2 = null;
+
+        Optional optional1 = Optional.ofNullable(user1);
+        User user = (User) optional1.get();
+        System.out.println(user);
+        Optional optional2 = Optional.ofNullable(user2);
+        optional2.get();
     }
 
     /**
@@ -41,7 +54,8 @@ public class OptionalApiDemo {
     public void testOfNullable() {
         Optional optional1 = Optional.ofNullable(user1);
         System.out.println(optional1.get());
-        Optional optional2 = Optional.ofNullable(user2);
+        Optional<User> optional2 = Optional.ofNullable(user2);
+        System.out.println(optional2.map(User::getName).orElse("unknown"));
         System.out.println(optional2.get());
     }
 
@@ -53,7 +67,12 @@ public class OptionalApiDemo {
      * @return:
      * @date: 2019/1/25 15:30
      */
+    @Test
     public void testOrElse() {
+
+        User user1 = new User("ry", 20);
+        User user2 = null;
+
         User u1 = Optional.ofNullable(user1).orElse(creatUser());
         System.out.println(u1);
 
@@ -69,21 +88,29 @@ public class OptionalApiDemo {
      * @return:
      * @date: 2019/1/25 15:30
      */
+    @Test
     public void testOrElseGet() {
 //        User u1 = Optional.ofNullable(user1).orElseGet(() -> creatUser());
 //        System.out.println(u1);
 
-        Optional optional = Optional.ofNullable(user2);
+        User user1 = new User("ry", 20);
+        User user2 = null;
+
+        Optional optional1 = Optional.ofNullable(user1);
+        // creatUser()不会执行
+        User user3 = (User) optional1.orElseGet(()-> creatUser());
+        System.out.println(user3);
+
+        Optional optional2 = Optional.ofNullable(user2);
+        // creatUser()会执行
+        User user4 = (User) optional2.orElseGet(() -> creatUser());
+        System.out.println(user4);
+
         // 用lambda表达式创建Supplier接口实例对象
         // todo：这里lambda表达式中对抽象方法的实现为"test"和调creatUser()方法，supplier对象debug看到的对象有区别，
         // debug调用creatUser()时里面有args
         // 解释：调用creatUser()时里面有args是因为这里有个一this的隐式调用，即this.creatUser();这里的this就相当于
         //      supplier的一个成员变量，当将creatUser()方法定义为public static时，就没有args参数信息
-        Supplier supplier = () -> creatUser();
-        Object u2 = optional.orElseGet(supplier);
-
-//        Object u2 = Optional.ofNullable(user2).orElseGet(supplier);
-        System.out.println(u2);
     }
 
     /**
@@ -94,7 +121,15 @@ public class OptionalApiDemo {
      * @return:
      * @date: 2019/1/25 15:31
      */
+    @Test
     public void testOrElseThrow() {
+
+        User user1 = new User("ry", 20);
+        User user2 = null;
+
+        User user3 = Optional.ofNullable(user1).orElseThrow(
+                () -> new RuntimeException("该用户不存在"));
+        System.out.println(user3);
         Optional.ofNullable(user2).orElseThrow(() -> new RuntimeException("该用户不存在"));
     }
 
@@ -143,9 +178,19 @@ public class OptionalApiDemo {
      * @return:
      * @date: 2019/1/25 17:12
      */
+    @Test
     public void testIsPresent() {
-        boolean result = Optional.ofNullable(user2).isPresent();
-        System.out.println(result);
+
+        User user1 = new User("ry", 20);
+        User user2 = null;
+
+        boolean result1 = Optional.ofNullable(user1).isPresent();
+        System.out.println(result1);// true
+
+        boolean result2 = Optional.ofNullable(user2).isPresent();
+        System.out.println(result2);// false
+
+        System.out.println(Optional.empty().isPresent());// false
     }
 
     /**
@@ -156,10 +201,14 @@ public class OptionalApiDemo {
      * @return:
      * @date: 2019/1/25 17:17
      */
+    @Test
     public void testIfPresent() {
+
+        User user1 = new User("ry", 20);
         Optional.ofNullable(user1).ifPresent(user -> System.out.println(user.getAge()));
-        user1.setAge(null);
-        Optional.ofNullable(user1).ifPresent(user -> System.out.println(user.getAge()));
+
+        User user2 = null;
+        Optional.ofNullable(user2).ifPresent(user -> System.out.println(user.getAge()));
     }
 
     /**
@@ -170,11 +219,19 @@ public class OptionalApiDemo {
      * @return:
      * @date: 2019/1/26 14:15
      */
+    @Test
     public void testFilter() {
-        Object object1 = Optional.ofNullable(user1).filter(user -> user.getName().equals("ZhangSan")).get();
-        System.out.println(object1);
-        Object object2 = Optional.ofNullable(user1).filter(user -> user.getName().equals("ZhangSan1")).get();
-        System.out.println(object2);
+
+        User user1 = new User("ry", 20);
+        User user2 = null;
+
+        Optional.ofNullable(user1)
+                .filter(user -> user.getName().equals("ry"))
+                .ifPresent(user -> System.out.println(user));
+
+        Optional.ofNullable(user2)
+                .filter(user -> user.getName().equals("ZhangSan1"))
+                .ifPresent(user -> System.out.println(user));
     }
 
     private User creatUser() {

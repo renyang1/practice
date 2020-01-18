@@ -304,8 +304,9 @@ public class StreamDemo {
          * */
         double avgAge = userList.stream().
                 map(user -> {
-                    if (user.getAge() == null)
+                    if (user.getAge() == null) {
                         user.setAge(0);// 将年龄值为null的置为0
+                    }
                     return user;
                 })
                 .collect(Collectors.averagingInt(User::getAge));
