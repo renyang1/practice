@@ -13,9 +13,9 @@ import java.util.function.Supplier;
  */
 public class OptionalApiDemo {
 
-    User user1 = new User("ZhangSan", 20);
-    User user2 = null;
-    User user3 = new User("LiSi");
+    User1 user1 = new User1("ZhangSan", 20);
+    User1 user2 = null;
+    User1 user3 = new User1("LiSi");
 
     public static void main(String[] args) {
         OptionalApiDemo optionalApiDemo = new OptionalApiDemo();
@@ -33,11 +33,11 @@ public class OptionalApiDemo {
     @Test
     public void testOf() {
 
-        User user1 = new User("ry", 20);
-        User user2 = null;
+        User1 user1 = new User1("ry", 20);
+        User1 user2 = null;
 
         Optional optional1 = Optional.ofNullable(user1);
-        User user = (User) optional1.get();
+        User1 user = (User1) optional1.get();
         System.out.println(user);
         Optional optional2 = Optional.ofNullable(user2);
         optional2.get();
@@ -54,8 +54,8 @@ public class OptionalApiDemo {
     public void testOfNullable() {
         Optional optional1 = Optional.ofNullable(user1);
         System.out.println(optional1.get());
-        Optional<User> optional2 = Optional.ofNullable(user2);
-        System.out.println(optional2.map(User::getName).orElse("unknown"));
+        Optional<User1> optional2 = Optional.ofNullable(user2);
+        System.out.println(optional2.map(User1::getName).orElse("unknown"));
         System.out.println(optional2.get());
     }
 
@@ -70,13 +70,13 @@ public class OptionalApiDemo {
     @Test
     public void testOrElse() {
 
-        User user1 = new User("ry", 20);
-        User user2 = null;
+        User1 user1 = new User1("ry", 20);
+        User1 user2 = null;
 
-        User u1 = Optional.ofNullable(user1).orElse(creatUser());
+        User1 u1 = Optional.ofNullable(user1).orElse(creatUser());
         System.out.println(u1);
 
-        User u2 = Optional.ofNullable(user2).orElse(creatUser());
+        User1 u2 = Optional.ofNullable(user2).orElse(creatUser());
         System.out.println(u2);
     }
 
@@ -93,17 +93,17 @@ public class OptionalApiDemo {
 //        User u1 = Optional.ofNullable(user1).orElseGet(() -> creatUser());
 //        System.out.println(u1);
 
-        User user1 = new User("ry", 20);
-        User user2 = null;
+        User1 user1 = new User1("ry", 20);
+        User1 user2 = null;
 
         Optional optional1 = Optional.ofNullable(user1);
         // creatUser()不会执行
-        User user3 = (User) optional1.orElseGet(()-> creatUser());
+        User1 user3 = (User1) optional1.orElseGet(()-> creatUser());
         System.out.println(user3);
 
         Optional optional2 = Optional.ofNullable(user2);
         // creatUser()会执行
-        User user4 = (User) optional2.orElseGet(() -> creatUser());
+        User1 user4 = (User1) optional2.orElseGet(() -> creatUser());
         System.out.println(user4);
 
         // 用lambda表达式创建Supplier接口实例对象
@@ -124,10 +124,10 @@ public class OptionalApiDemo {
     @Test
     public void testOrElseThrow() {
 
-        User user1 = new User("ry", 20);
-        User user2 = null;
+        User1 user1 = new User1("ry", 20);
+        User1 user2 = null;
 
-        User user3 = Optional.ofNullable(user1).orElseThrow(
+        User1 user3 = Optional.ofNullable(user1).orElseThrow(
                 () -> new RuntimeException("该用户不存在"));
         System.out.println(user3);
         Optional.ofNullable(user2).orElseThrow(() -> new RuntimeException("该用户不存在"));
@@ -164,7 +164,7 @@ public class OptionalApiDemo {
      * @date: 2019/1/25 16:37
      */
     public void testFlatMap() {
-        Function<User, Optional<Integer>> function = user -> Optional.ofNullable(user.getAge());
+        Function<User1, Optional<Integer>> function = user -> Optional.ofNullable(user.getAge());
         Object object = Optional.ofNullable(user1).flatMap(function).get();
         System.out.println(object);
 //        Object object1 = Optional.ofNullable(user1).flatMap(user -> Optional.ofNullable(user.getAge()));
@@ -181,8 +181,8 @@ public class OptionalApiDemo {
     @Test
     public void testIsPresent() {
 
-        User user1 = new User("ry", 20);
-        User user2 = null;
+        User1 user1 = new User1("ry", 20);
+        User1 user2 = null;
 
         boolean result1 = Optional.ofNullable(user1).isPresent();
         System.out.println(result1);// true
@@ -204,10 +204,10 @@ public class OptionalApiDemo {
     @Test
     public void testIfPresent() {
 
-        User user1 = new User("ry", 20);
+        User1 user1 = new User1("ry", 20);
         Optional.ofNullable(user1).ifPresent(user -> System.out.println(user.getAge()));
 
-        User user2 = null;
+        User1 user2 = null;
         Optional.ofNullable(user2).ifPresent(user -> System.out.println(user.getAge()));
     }
 
@@ -222,8 +222,8 @@ public class OptionalApiDemo {
     @Test
     public void testFilter() {
 
-        User user1 = new User("ry", 20);
-        User user2 = null;
+        User1 user1 = new User1("ry", 20);
+        User1 user2 = null;
 
         Optional.ofNullable(user1)
                 .filter(user -> user.getName().equals("ry"))
@@ -234,28 +234,28 @@ public class OptionalApiDemo {
                 .ifPresent(user -> System.out.println(user));
     }
 
-    private User creatUser() {
+    private User1 creatUser() {
         System.out.println("creat default user");
-        return new User("default", 0);
+        return new User1("default", 0);
     }
 
 }
 
 
-class User {
+class User1 {
 
     private String name;
     private Integer age;
 
-    public User() {
+    public User1() {
     }
 
-    public User(String name, Integer age) {
+    public User1(String name, Integer age) {
         this.name = name;
         this.age = age;
     }
 
-    public User(String name) {
+    public User1(String name) {
         this.name = name;
     }
 

@@ -24,12 +24,13 @@ public class StreamDemo {
     // 初始化集合
     private List<User> userList = new ArrayList<User>() {
         {
-            this.add(new User(1, 40, "小明", "男"));
-            this.add(new User(2, 10, "小敏", "女"));
-            this.add(new User(3, 30, "小红", "女"));
-            this.add(new User(4, 20, "小李", "男"));
-            this.add(new User(4, 40, "小李", "男"));
-            this.add(new User(5, null, "小王", "男"));
+            this.add(new User(5, 50, "小明", "男"));
+            this.add(new User(2, 10, "小明", "男"));
+            this.add(new User(4, 10, "小敏", "女"));
+            this.add(new User(5, 60, "小红", "女"));
+            this.add(new User(2, 30, "小李", "男"));
+            this.add(new User(1, 40, "小李", "男"));
+            this.add(new User(3, 20, "小王", "男"));
         }
     };
 
@@ -330,6 +331,23 @@ public class StreamDemo {
          * */
         Map<String, List<User>> userBySex = userList.stream().collect(Collectors.groupingBy(User::getSex));
         System.out.println("按性别分组结果为：" + userBySex);
+
+    }
+
+    @Test
+    public void test1 () {
+        Map<Integer, Integer> userMap = userList.stream().collect(Collectors.groupingBy(User::getId, Collectors.summingInt(User::getAge)));
+        System.out.println(userMap);
+
+//        userMap.entrySet().stream().sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+//                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1,e2) -> e1, LinkedHashMap::new));
+//        System.out.println(map);
+        // 分组排序
+        Map<Integer, Integer> map = userList.stream().collect(Collectors.groupingBy(user -> user.getId(), TreeMap::new, Collectors.summingInt(User::getAge)));
+        System.out.println(map);
+        map = map.entrySet().stream().sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1,e2) -> e1, LinkedHashMap::new));
+        System.out.println(map);
 
     }
 

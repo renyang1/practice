@@ -2,12 +2,16 @@ package com.ryang.bookdemo.chapter12;
 
 import org.junit.Test;
 
+import javax.xml.crypto.Data;
+import java.math.BigDecimal;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
+import java.util.Date;
+import java.util.stream.Collectors;
 
 /**
  * @Auther: renyang
@@ -47,6 +51,12 @@ public class LocalDateTest {
         System.out.println(dateTime1.toString());
         LocalDate date5 = dateTime1.toLocalDate();
         System.out.println(date5);
+
+        // 6. 将Date转为LocalDate
+        Date data = new Date();
+        System.out.println(data);
+        LocalDate localDate = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        System.out.println(localDate);
     }
 
     /**
@@ -213,5 +223,20 @@ public class LocalDateTest {
         // 第三阶段结束时间
         String level3Enddate = openClassDate.plusMonths(7).with(TemporalAdjusters.lastDayOfMonth()).toString();
         System.out.println(level3Enddate);
+    }
+
+    @Test
+    public void test2() {
+
+        BigDecimal signUpTotalAmount = new BigDecimal("180000");
+        BigDecimal allDiscountAmount = new BigDecimal("179966");
+        BigDecimal allSignUpTotalAmount = new BigDecimal("10");
+        BigDecimal[] result = allDiscountAmount.multiply(new BigDecimal("1")).divideAndRemainder(allSignUpTotalAmount);
+        System.out.println(result);
+
+        Integer discountAmount = result[0].intValue() + (result[1].intValue() > 0 ? 1 : 0);
+        System.out.println(discountAmount);
+        Integer last = allDiscountAmount.intValue() - discountAmount * (allSignUpTotalAmount.intValue() - 1);
+        System.out.println(last);
     }
 }

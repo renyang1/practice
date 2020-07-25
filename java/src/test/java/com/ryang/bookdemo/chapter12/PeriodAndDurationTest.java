@@ -28,5 +28,11 @@ public class PeriodAndDurationTest {
         String localTime = "17:00:00";
         LocalTime localTime1 = LocalTime.parse(localTime);
         System.out.println(localTime1);
+
+        Integer i1 = 300;
+        Integer i2 = 300;
+        Integer i3 = 200;
+        System.out.println(i1 == i2);
+        System.out.println(i1 > i3);
     }
 }

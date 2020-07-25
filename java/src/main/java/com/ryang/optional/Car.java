@@ -1,4 +1,4 @@
-package com.ryang.vo;
+package com.ryang.optional;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -7,15 +7,16 @@ import java.util.Optional;
 
 /**
  * @author renyang
- * @date: 2020/1/1 13:13
+ * @date: 2020/1/1 13:40
  */
 @Data
 @Accessors(chain = true)
-public class User {
+public class Car {
 
     private String name;
 
-    private Integer age;
+    private String color;
 
-    private Optional<Car> car;
+    /** 保险公司 */
+    private Optional<Insurance> insurance;
 }

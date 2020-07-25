@@ -1,9 +1,5 @@
 package com.ryang.optional;
 
-import com.ryang.vo.Car;
-import com.ryang.vo.Insurance;
-import com.ryang.vo.User;
-
 import java.util.Optional;
 
 /**

@@ -1,4 +1,4 @@
-package com.ryang.vo;
+package com.ryang.optional;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
