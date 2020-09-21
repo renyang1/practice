@@ -6,7 +6,10 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @Auther: renyang
@@ -93,5 +96,16 @@ public class LocalDateTimeTest {
         System.out.println(diffSeconds);// 相差秒数
     }
 
+    @Test
+    public void test1() {
+        List l1 = new ArrayList();
+        List l2 = new LinkedList();
+        t(l1, l2);
+    }
 
+    public void t (Object o1, Object o2) {
+        System.out.println(o1.getClass());
+        System.out.println(o2.getClass());
+        System.out.println(o1.getClass().isInstance(o2.getClass()));
+    }
 }

@@ -329,6 +329,7 @@ public class StreamDemo {
         /**
          * 5. 分组：Collectors
          * */
+        userList = Collections.emptyList();
         Map<String, List<User>> userBySex = userList.stream().collect(Collectors.groupingBy(User::getSex));
         System.out.println("按性别分组结果为：" + userBySex);
 

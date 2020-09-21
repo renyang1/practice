@@ -1,5 +1,7 @@
 package com.ryang.bookdemo.chapter12;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 
 import javax.xml.crypto.Data;
@@ -227,16 +229,7 @@ public class LocalDateTest {
 
     @Test
     public void test2() {
-
-        BigDecimal signUpTotalAmount = new BigDecimal("180000");
-        BigDecimal allDiscountAmount = new BigDecimal("179966");
-        BigDecimal allSignUpTotalAmount = new BigDecimal("10");
-        BigDecimal[] result = allDiscountAmount.multiply(new BigDecimal("1")).divideAndRemainder(allSignUpTotalAmount);
-        System.out.println(result);
-
-        Integer discountAmount = result[0].intValue() + (result[1].intValue() > 0 ? 1 : 0);
-        System.out.println(discountAmount);
-        Integer last = allDiscountAmount.intValue() - discountAmount * (allSignUpTotalAmount.intValue() - 1);
-        System.out.println(last);
+        JSONObject jsonObject = JSON.parseObject("{}");
+        System.out.println(jsonObject);
     }
 }
