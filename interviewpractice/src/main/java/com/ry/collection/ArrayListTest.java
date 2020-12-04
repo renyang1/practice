@@ -1,5 +1,7 @@
 package com.ry.collection;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -25,4 +27,27 @@ public class ArrayListTest {
         System.out.println(strings);
     }
 
+    @Test
+    public void test1(){
+        List<User> users1 = new ArrayList<>();
+        User user1 = new User("a", 1);
+        User user11 = new User("a", 1);
+
+        User user21 = new User("a", 1);
+
+        users1.add(user1);
+        users1.add(user11);
+
+        System.out.println(users1.contains(user21));
+
+
+    }
+
+}
+
+@Data
+@AllArgsConstructor
+class User {
+    private String name;
+    private int age;
 }

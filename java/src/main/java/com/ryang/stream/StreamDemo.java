@@ -30,7 +30,7 @@ public class StreamDemo {
             this.add(new User(5, 60, "小红", "女"));
             this.add(new User(2, 30, "小李", "男"));
             this.add(new User(1, 40, "小李", "男"));
-            this.add(new User(3, 20, "小王", "男"));
+            this.add(new User(3, 60, "小王", "男"));
         }
     };
 
@@ -321,7 +321,7 @@ public class StreamDemo {
         String name = userList.stream().map(User::getName).collect(Collectors.joining());// 元素间无分隔符
         System.out.println("拼接所有name,结果为：" + name);
 
-        String name1 = userList.stream().map(User::getName).collect(Collectors.joining(", "));// name将以逗号分隔
+        String name1 = userList.stream().map(User::getName).collect(Collectors.joining(""));// name将以逗号分隔
         System.out.println(name1);
 
         /*** 分组 ***/

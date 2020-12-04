@@ -1,5 +1,9 @@
 package com.ryang.reflection;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.ToString;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -32,11 +36,18 @@ public class Test04 {
         /** 通过反射操作属性 */
         Dog dog1 = (Dog) c1.newInstance();
         System.out.println(dog1);
-        // 获取属性
+        // 设置属性
         Field org = c1.getDeclaredField("org");
         // 不能直接操作私有属性，需要调用属性或方法的setAccessible(true)关闭安全检测
         org.setAccessible(true);
         org.set(dog1, "南充");
         System.out.println(dog1.getOrg());
+        // 获取属性
+        String orgName = (String) org.get(dog1);
+        System.out.println(orgName);
+
+        /** 通过PropertyDescriptor设置获取属性 */
+
     }
 }
+
