@@ -2,6 +2,9 @@ package com.ryang.optional;
 
 import org.junit.Test;
 
+import java.math.BigDecimal;
+import java.util.*;
+
 import static org.junit.Assert.*;
 
 /**
@@ -25,5 +28,10 @@ public class OptionalDemoTest {
     @Test
     public void optionalFlatMap() {
         optionalDemo.optionalFlatMap();
+    }
+
+    @Test
+    public void test() {
+        System.out.println(new BigDecimal(200 + "").divide(new BigDecimal("100"),2,BigDecimal.ROUND_HALF_UP).toPlainString());
     }
 }

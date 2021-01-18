@@ -1,7 +1,5 @@
 package com.ryang.stream;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.junit.Test;
 
 import java.util.*;
@@ -24,13 +22,13 @@ public class StreamDemo {
     // 初始化集合
     private List<User> userList = new ArrayList<User>() {
         {
-            this.add(new User(5, 50, "小明", "男"));
-            this.add(new User(2, 10, "小明", "男"));
-            this.add(new User(4, 10, "小敏", "女"));
-            this.add(new User(5, 60, "小红", "女"));
-            this.add(new User(2, 30, "小李", "男"));
-            this.add(new User(1, 40, "小李", "男"));
-            this.add(new User(3, 60, "小王", "男"));
+            this.add(new User(1, 100, "大明", "男"));
+            this.add(new User(2, 20, "小明", null));
+            this.add(new User(3, 20, "小敏", ""));
+            this.add(new User(4, 60, "小红", "女"));
+            this.add(new User(5, 30, "李四", "男"));
+            this.add(new User(6, 40, "小李", ""));
+            this.add(new User(7, 60, "王五", "男"));
         }
     };
 
@@ -42,18 +40,26 @@ public class StreamDemo {
      * @return:
      * @date: 2019/7/23 16:41
      */
+    @Test
     public void creatStream() {
         // 1.Individual values
         Stream stream1 = Stream.of("a", "b", "c");
 
-        // 2.利用数据创建Stream
+        // 2.利用数组创建Stream
         String[] args = new String[]{"a", "b", "c"};
-        Stream stream2 = Stream.of(args);
+        Stream streamArgs = Arrays.stream(args);
+        streamArgs.forEach(System.out::println);
 
         // 3.使用Collections接口创建
         List<String> list = Arrays.asList(args);
         Stream stream3 = list.stream();
-        forEachStream(stream3);
+        stream3.forEach(System.out::println);
+
+        Stream<Integer> stream4 = Stream.iterate(0, (x) -> x + 3).limit(4);
+        stream4.forEach(System.out::println); // 0 2 4 6 8 10
+
+        Stream<Double> stream5 = Stream.generate(Math::random).limit(3);
+        stream5.forEach(System.out::println);
     }
 
     /**
@@ -113,9 +119,9 @@ public class StreamDemo {
         /**
          * 2.filter: 筛选符合条件的元素,注意函数式接口Predicate的使用
          * */
-        List<User> ageMoreThan20UserList = userList.stream().filter(user -> user.getAge() > 20)
-                .collect(Collectors.toList());// 得到年龄大于20的user
-//        System.out.println(ageMoreThan20UserList);
+        List<String> ageMoreThan20UserNameList = userList.stream().filter(user -> user.getAge() > 20).map(User::getName)
+                .collect(Collectors.toList());// 得到年龄大于20的user名称
+        System.out.println(ageMoreThan20UserNameList);
 
         /**
          * 3.distinct: 返回一个元素各异(根据元素的hashCode和equals方法)的流
@@ -286,7 +292,7 @@ public class StreamDemo {
         Comparator<User> ageComparator = Comparator.comparingInt(User::getAge);
         Optional<User> ageMaxUser = userList.stream()
                 .filter(user -> user.getAge() != null) // 注意null值过滤
-                .collect(Collectors.maxBy(ageComparator));
+                .max(ageComparator);
         if (ageMaxUser.isPresent()) {
             System.out.println("年龄最大的用户为：" + ageMaxUser);
         }
@@ -336,7 +342,7 @@ public class StreamDemo {
     }
 
     @Test
-    public void test1 () {
+    public void test1() {
         Map<Integer, Integer> userMap = userList.stream().collect(Collectors.groupingBy(User::getId, Collectors.summingInt(User::getAge)));
         System.out.println(userMap);
 
@@ -347,7 +353,7 @@ public class StreamDemo {
         Map<Integer, Integer> map = userList.stream().collect(Collectors.groupingBy(user -> user.getId(), TreeMap::new, Collectors.summingInt(User::getAge)));
         System.out.println(map);
         map = map.entrySet().stream().sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1,e2) -> e1, LinkedHashMap::new));
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         System.out.println(map);
 
     }
@@ -356,12 +362,24 @@ public class StreamDemo {
         stream.forEach(System.out::println);
     }
 
-    @Data
-    @AllArgsConstructor
-    class User {
-        private Integer id;
-        private Integer age;
-        private String name;
-        private String sex;
+    @Test
+    public void test2() {
+
+        String[] arr1 = { "a", "b", "c", "d" };
+        String[] arr2 = { "d", "e", "f", "g" };
+
+        Stream<String> stream1 = Stream.of(arr1);
+        Stream<String> stream2 = Stream.of(arr2);
+        // concat:合并两个流 distinct：去重
+        List<String> newList = Stream.concat(stream1, stream2).distinct().collect(Collectors.toList());
+        // limit：限制从流中获得前n个数据
+        List<Integer> collect = Stream.iterate(1, x -> x + 2).limit(10).collect(Collectors.toList());
+        // skip：跳过前n个数据
+        List<Integer> collect2 = Stream.iterate(1, x -> x + 2).skip(1).limit(5).collect(Collectors.toList());
+
+        System.out.println("流合并：" + newList);
+        System.out.println("limit：" + collect);
+        System.out.println("skip：" + collect2);
     }
+
 }
