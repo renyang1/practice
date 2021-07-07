@@ -1,6 +1,6 @@
-package com.ryang.designpatterns.factory;
+package com.ryang.designpatterns.factory.factorymethod;
 
-import com.ryang.designpatterns.entity.Product;
+import com.ryang.designpatterns.factory.entity.Product;
 
 /**
  * Description: 请描述你的文件
@@ -12,5 +12,5 @@ import com.ryang.designpatterns.entity.Product;
  */
 public interface ProductFactory {
 
-    Product getProduct(String type);
+    Product getProduct();
 }

@@ -1,8 +1,7 @@
-package com.ryang.designpatterns.factory;
+package com.ryang.designpatterns.factory.factorymethod;
 
-import com.ryang.designpatterns.entity.Car;
-import com.ryang.designpatterns.entity.Product;
-import com.ryang.designpatterns.factory.simplefactory.SimpleProductFactory;
+import com.ryang.designpatterns.factory.entity.Car;
+import com.ryang.designpatterns.factory.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -19,7 +18,8 @@ import lombok.Data;
 public class CarFactory implements ProductFactory {
 
     @Override
-    public Product getProduct(String type) {
+    public Product getProduct() {
+        System.out.println("product:Car");
        return new Car();
     }
 }

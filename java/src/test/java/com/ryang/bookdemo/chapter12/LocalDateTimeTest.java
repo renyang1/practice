@@ -98,14 +98,11 @@ public class LocalDateTimeTest {
 
     @Test
     public void test1() {
-        List l1 = new ArrayList();
-        List l2 = new LinkedList();
-        t(l1, l2);
+        int dayOfYear = LocalDate.now().getYear();
+        LocalDateTime nowDateTime = LocalDateTime.parse(dayOfYear + "-" + "10-22 13:37", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        LocalDateTime targetDateTime = LocalDateTime.parse(dayOfYear + "-" + "10-22 13:38", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        System.out.println(targetDateTime.isAfter(nowDateTime));
     }
 
-    public void t (Object o1, Object o2) {
-        System.out.println(o1.getClass());
-        System.out.println(o2.getClass());
-        System.out.println(o1.getClass().isInstance(o2.getClass()));
-    }
+
 }

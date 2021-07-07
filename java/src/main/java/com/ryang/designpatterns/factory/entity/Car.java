@@ -1,4 +1,4 @@
-package com.ryang.designpatterns.entity;
+package com.ryang.designpatterns.factory.entity;
 
 import lombok.Data;
 
@@ -11,23 +11,20 @@ import lombok.Data;
  * All rights Reserved, Designed www.xiao100.com
  */
 @Data
-public class Fruit extends Product {
+public class Car extends Product {
 
-    private String type = "水果";
-
-    public Fruit() {
+    public Car() {
 
     }
 
-    public Fruit(String name, Integer price) {
+    public Car(String name, Integer price) {
         this.name = name;
         this.price = price;
+        this.type = "汽车";
     }
 
     @Override
     public void detail() {
-        System.out.println("水果：" + name);
+        System.out.println("汽车：" + name);
     }
 }
-
-

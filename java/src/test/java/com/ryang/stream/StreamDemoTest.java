@@ -154,4 +154,23 @@ public class StreamDemoTest {
         private Integer money;
 
     }
+
+    public static void main(String[] args) {
+        List<String> miniClassNos = new ArrayList<>();
+        miniClassNos.add("a");
+        miniClassNos.add("b");
+        miniClassNos.add("c");
+
+        List<String> nos = new ArrayList<>();
+
+        if (nos.isEmpty()) {
+            nos.add("null");
+        }
+        for (String no : nos) {
+
+            for (String miniClassNo : miniClassNos) {
+                System.out.println(no + miniClassNo);
+            }
+        }
+    }
 }

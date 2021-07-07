@@ -1,4 +1,4 @@
-package com.ryang.designpatterns.entity;
+package com.ryang.designpatterns.factory.entity;
 
 import lombok.Data;
 
@@ -11,13 +11,15 @@ import lombok.Data;
  * All rights Reserved, Designed www.xiao100.com
  */
 @Data
-public class Product {
+public class DiscountProduct {
 
     protected String name;
 
     protected Integer price;
 
     protected String type;
+
+    protected Integer discountPrice;
 
     public void detail(){}
 

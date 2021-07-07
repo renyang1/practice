@@ -1,8 +1,8 @@
 package com.ryang.designpatterns.factory.simplefactory;
 
-import com.ryang.designpatterns.entity.Car;
-import com.ryang.designpatterns.entity.Fruit;
-import com.ryang.designpatterns.entity.Product;
+import com.ryang.designpatterns.factory.entity.Car;
+import com.ryang.designpatterns.factory.entity.Fruit;
+import com.ryang.designpatterns.factory.entity.Product;
 
 /**
  * Description: 简单工厂方法模式
