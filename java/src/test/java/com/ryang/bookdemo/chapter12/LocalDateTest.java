@@ -229,7 +229,14 @@ public class LocalDateTest {
 
     @Test
     public void test2() {
-        JSONObject jsonObject = JSON.parseObject("{}");
-        System.out.println(jsonObject);
+        String a = "test";
+        String b = "test";
+        System.out.println(a == b);
+
+        String c= new String("test");
+        System.out.println(a == c);
+
+        final String d = "test";
+        System.out.println(a + "1" == d + "1");
     }
 }

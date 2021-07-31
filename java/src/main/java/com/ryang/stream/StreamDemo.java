@@ -2,6 +2,7 @@ package com.ryang.stream;
 
 import org.junit.Test;
 
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -380,6 +381,20 @@ public class StreamDemo {
         System.out.println("流合并：" + newList);
         System.out.println("limit：" + collect);
         System.out.println("skip：" + collect2);
+    }
+
+    @Test
+    public void test3() {
+        int a = 1;
+        int b = 3;
+        double i = a/ (double) b;
+        System.out.println(i);
+
+        NumberFormat nf = NumberFormat.getPercentInstance();
+        nf.setMinimumFractionDigits(2);
+        String format = nf.format(i);
+        System.out.println(format);
+
     }
 
 }
