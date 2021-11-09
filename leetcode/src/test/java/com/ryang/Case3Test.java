@@ -1,5 +1,6 @@
 package com.ryang;
 
+import com.ryang.leetcode.Case3;
 import org.junit.Test;
 
 /**

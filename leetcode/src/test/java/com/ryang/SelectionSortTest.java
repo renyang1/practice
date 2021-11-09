@@ -1,5 +1,6 @@
 package com.ryang;
 
+import com.ryang.sort.SelectionSort;
 import org.junit.Test;
 
 /**

@@ -1,4 +1,4 @@
-package com.ryang;
+package com.ryang.leetcode;
 
 /**
  * Description: 请描述你的文件

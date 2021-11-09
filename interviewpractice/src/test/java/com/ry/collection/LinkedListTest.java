@@ -14,35 +14,14 @@ public class LinkedListTest {
 
     LinkedList<String> linkedList = new LinkedList<>();
     Stack<String> stack = new Stack<>();
-    Set<String> set = new HashSet<>();
-
-    TreeSet<String> treeSet = new TreeSet();
-
-    @Before
-    public void init() {
-        linkedList.add("a");
-        linkedList.add("b");
-        linkedList.add("c");
-        linkedList.add("a");
-
-        stack.push("a");
-        stack.push("b");
-        stack.push("c");
-
-        set.add("a");
-        set.add("b");
-        set.add("c");
-
-        treeSet.add("a");
-        treeSet.add("b");
-        treeSet.add("c");
-
-
-    }
 
     @Test
     public void getTest() {
-        System.out.println(linkedList.get(2));
+        linkedList.add("1");
+        linkedList.add("2");
+        linkedList.add("3");
+        linkedList.add(1, null);
+        System.out.println(linkedList.get(1));
     }
 
     @Test

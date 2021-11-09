@@ -1,4 +1,4 @@
-package com.ryang.leetcode_202107;
+package com.ryang.leetcode.leetcode_202107;
 
 import java.util.HashSet;
 import java.util.Set;

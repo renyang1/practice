@@ -1,4 +1,4 @@
-package com.ryang;
+package com.ryang.leetcode;
 
 /**
  * @Auther: renyang

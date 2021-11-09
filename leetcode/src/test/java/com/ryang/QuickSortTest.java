@@ -1,5 +1,6 @@
 package com.ryang;
 
+import com.ryang.sort.QuickSort;
 import org.junit.Test;
 
 import java.util.Arrays;

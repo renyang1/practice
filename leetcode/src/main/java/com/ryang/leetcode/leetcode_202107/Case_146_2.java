@@ -1,4 +1,4 @@
-package com.ryang.leetcode_202107;
+package com.ryang.leetcode.leetcode_202107;
 
 //运用你所掌握的数据结构，设计和实现一个 LRU (最近最少使用) 缓存机制 。
 //

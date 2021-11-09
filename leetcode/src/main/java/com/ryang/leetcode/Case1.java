@@ -1,4 +1,4 @@
-package com.ryang;
+package com.ryang.leetcode;
 
 import java.util.HashMap;
 import java.util.Map;

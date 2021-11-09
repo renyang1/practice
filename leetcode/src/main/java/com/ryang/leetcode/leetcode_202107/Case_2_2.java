@@ -1,6 +1,4 @@
-package com.ryang.leetcode_202107;
-
-import java.util.List;
+package com.ryang.leetcode.leetcode_202107;
 
 /**
  * Description:

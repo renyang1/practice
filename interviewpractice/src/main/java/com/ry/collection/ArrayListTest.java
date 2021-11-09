@@ -16,15 +16,12 @@ public class ArrayListTest {
 
     @Test
     public void removeTest(){
-        List<String> strings = new ArrayList<>();
+        List<String> strings = new ArrayList<>(4);
         strings.add("a");
-        strings.add("b");
-        for (String string: strings) {
-            if("b".equalsIgnoreCase(string)){
-                strings.remove(string);
-            }
-        }
-        System.out.println(strings);
+        strings.add(2, null);
+        strings.add(1, null);
+
+        System.out.println(strings.get(1));
     }
 
     @Test
