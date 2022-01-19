@@ -1,6 +1,5 @@
 package com.ryang.reflection;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -14,15 +13,15 @@ import lombok.ToString;
  * All rights Reserved, Designed www.xiao100.com
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
-public class Dog extends Animal{
+@NoArgsConstructor
+public class BigDog extends Dog{
 
-    private String org;
+    private String color;
 
     @Override
     public void run() {
-        System.out.println("Dog run...");
+        System.out.println("BigDog run...");
     }
+
 }

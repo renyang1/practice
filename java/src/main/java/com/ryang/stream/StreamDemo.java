@@ -1,11 +1,13 @@
 package com.ryang.stream;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.groupingBy;
 
 /**
  * @Auther: renyang
@@ -19,17 +21,16 @@ import java.util.stream.Stream;
  * 所以这必定是流的最后一个操作。Terminal 操作的执行，才会真正开始流的遍历，并且会生成一个结果，或者一个 side effect。
  */
 public class StreamDemo {
-
     // 初始化集合
     private List<User> userList = new ArrayList<User>() {
         {
-            this.add(new User(1, 100, "大明", "男"));
-            this.add(new User(2, 20, "小明", null));
-            this.add(new User(3, 20, "小敏", ""));
-            this.add(new User(4, 60, "小红", "女"));
-            this.add(new User(5, 30, "李四", "男"));
-            this.add(new User(6, 40, "小李", ""));
-            this.add(new User(7, 60, "王五", "男"));
+            this.add(new User(1, 10, "大明", "男"));
+            this.add(new User(2, 10, "小明", "男"));
+            this.add(new User(3, 10, "小明", "男"));
+            this.add(new User(4, 20, "小红", "女"));
+            this.add(new User(5, 20, "李四", "男"));
+            this.add(new User(6, 30, "小李", ""));
+            this.add(new User(7, 40, "王五", "男"));
         }
     };
 
@@ -337,21 +338,21 @@ public class StreamDemo {
          * 5. 分组：Collectors
          * */
         userList = Collections.emptyList();
-        Map<String, List<User>> userBySex = userList.stream().collect(Collectors.groupingBy(User::getSex));
+        Map<String, List<User>> userBySex = userList.stream().collect(groupingBy(User::getSex));
         System.out.println("按性别分组结果为：" + userBySex);
 
     }
 
     @Test
     public void test1() {
-        Map<Integer, Integer> userMap = userList.stream().collect(Collectors.groupingBy(User::getId, Collectors.summingInt(User::getAge)));
+        Map<Integer, Integer> userMap = userList.stream().collect(groupingBy(User::getId, Collectors.summingInt(User::getAge)));
         System.out.println(userMap);
 
 //        userMap.entrySet().stream().sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
 //                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1,e2) -> e1, LinkedHashMap::new));
 //        System.out.println(map);
         // 分组排序
-        Map<Integer, Integer> map = userList.stream().collect(Collectors.groupingBy(user -> user.getId(), TreeMap::new, Collectors.summingInt(User::getAge)));
+        Map<Integer, Integer> map = userList.stream().collect(groupingBy(user -> user.getId(), TreeMap::new, Collectors.summingInt(User::getAge)));
         System.out.println(map);
         map = map.entrySet().stream().sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
@@ -385,15 +386,18 @@ public class StreamDemo {
 
     @Test
     public void test3() {
-        int a = 1;
-        int b = 3;
-        double i = a/ (double) b;
-        System.out.println(i);
+        userList = null;
+        // 多字段分组
+        Map<Integer, Map<String, List<User>>> collect = userList.stream()
+                .collect(groupingBy(User::getAge, groupingBy(User::getName)));
+        System.out.println(collect);
+    }
 
-        NumberFormat nf = NumberFormat.getPercentInstance();
-        nf.setMinimumFractionDigits(2);
-        String format = nf.format(i);
-        System.out.println(format);
+    public static void main(String[] args) {
+        String s = "1";
+        String[] split = s.split(",");
+        System.out.println(split);
+
 
     }
 

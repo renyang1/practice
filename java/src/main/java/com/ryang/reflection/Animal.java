@@ -16,4 +16,8 @@ public class Animal {
     private String name;
 
     private int age;
+
+    public void run() {
+        System.out.println("Animal run...");
+    }
 }
