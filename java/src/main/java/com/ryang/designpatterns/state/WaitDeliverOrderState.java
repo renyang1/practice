@@ -3,7 +3,7 @@ package com.ryang.designpatterns.state;
 public class WaitDeliverOrderState extends AbstractOrderState {
 
     @Override
-    public Enum type() {
+    public OrderStateEnum type() {
         return OrderStateEnum.WAIT_DELIVER;
     }
 
