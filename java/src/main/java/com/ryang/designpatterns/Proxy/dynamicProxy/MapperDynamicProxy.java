@@ -34,6 +34,5 @@ public class MapperDynamicProxy {
         MapperDynamicProxy proxy = new MapperDynamicProxy();
         Mapper mapper = (Mapper) proxy.creatProxy(new UserMapper());
         mapper.select();
-
     }
 }
