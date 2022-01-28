@@ -1,6 +1,5 @@
 package com.ry.collection;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.*;
@@ -22,6 +21,10 @@ public class LinkedListTest {
         linkedList.add("3");
         linkedList.add(1, null);
         System.out.println(linkedList.get(1));
+        Iterator<String> iterator = linkedList.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
     }
 
     @Test
@@ -67,6 +70,20 @@ public class LinkedListTest {
 
     @Test
     public void test1() {
+        List<String> list = new ArrayList<>();
+        list.add("a");
+        list.add("b");
+        list.add("c");
+        list.add("d");
 
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println("i:" + i + ", size:" + list.size());
+            if (i == 3) {
+                list.remove(i);
+            }
+            // 若移除的是最后一个元素，则会抛出IndexOutOfBoundsException；移除非最后一个元素则能正常遍历
+            // 最后一个元素被移除后，get(i)中i这个位置已经没有元素了
+            System.out.println(i + ":"+ list.get(i));
+        }
     }
 }
